@@ -29,6 +29,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
                 cmd_args->topic_name, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -38,6 +39,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
                 cmd_args->topic_name, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -47,6 +49,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
                 cmd_args->topic_name, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -55,6 +58,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 factory, 
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -63,6 +67,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 factory, 
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -78,6 +83,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 factory, 
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }

@@ -29,6 +29,7 @@ struct RTI_CommandLineArguments {
     char *qos_type;
     const char *topic_name;
     char *query;
+    DDS_Boolean qos_delta;
 };
 
 void RTI_CommandLineArguments_initialize(struct RTI_CommandLineArguments *cmd_args);

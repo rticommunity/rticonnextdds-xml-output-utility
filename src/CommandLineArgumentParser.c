@@ -51,6 +51,11 @@ const char *RTI_CMD_ARG_TOPIC_NAME[RTI_CMD_ARG_INFO_ARRAY_SIZE] = {
         "-topicName", 
         "Can be used with -qosTag = \"datawriter_qos\" | \"datareader_qos\" | \"topic_qos\"", 
         "OPTIONAL: The default value used with these types will be NULL"};
+const char *RTI_CMD_ARG_QOS_DELTA[RTI_CMD_ARG_INFO_ARRAY_SIZE] = {
+        "-deltaProfile", 
+        "If specified, the utility will output the difference between the selected QoS Profile"
+        "\n\t\t and the default values for the selected -qosTag", 
+        "OPTIONAL: By default the utility outputs all the Qos values of the selected -qosTag"};
 
 void RTI_CommandLineArgumentParser_print_help() 
 {
@@ -64,6 +69,7 @@ void RTI_CommandLineArgumentParser_print_help()
     printf("%s \t %s \n \t\t %s \n\n", RTI_CMD_ARG_PROFILE_PATH[0], RTI_CMD_ARG_PROFILE_PATH[1], RTI_CMD_ARG_PROFILE_PATH[2]);
     printf("%s \t %s \n \t\t %s \n\n", RTI_CMD_ARG_QOS_TAG[0], RTI_CMD_ARG_QOS_TAG[1], RTI_CMD_ARG_QOS_TAG[2]);
     printf("%s \t %s \n \t\t %s \n\n", RTI_CMD_ARG_TOPIC_NAME[0], RTI_CMD_ARG_TOPIC_NAME[1], RTI_CMD_ARG_TOPIC_NAME[2]);
+    printf("%s \t %s \n \t\t %s \n\n", RTI_CMD_ARG_QOS_DELTA[0], RTI_CMD_ARG_QOS_DELTA[1], RTI_CMD_ARG_QOS_DELTA[2]);
     printf("%s \t %s \n \t\t %s \n\n", RTI_CMD_ARG_HELP[0], RTI_CMD_ARG_HELP[1], RTI_CMD_ARG_HELP[2]);
 }
 
@@ -88,6 +94,7 @@ void RTI_CommandLineArguments_initialize(struct RTI_CommandLineArguments *cmd_ar
     cmd_args->query = NULL;
     cmd_args->topic_name = NULL;
     cmd_args->qos_file = NULL;
+    cmd_args->qos_delta = DDS_BOOLEAN_FALSE;
 }
 
 void RTI_CommandLineArguments_finalize(struct RTI_CommandLineArguments *cmd_args)
@@ -99,6 +106,7 @@ void RTI_CommandLineArguments_finalize(struct RTI_CommandLineArguments *cmd_args
     DDS_String_free(cmd_args->query);
     cmd_args->topic_name = NULL;
     cmd_args->qos_file = NULL;
+    // Don't have to do anything for qos_delta
 }
 
 DDS_Boolean RTI_CommandLineArgumentParser_parse_qos_file(
@@ -188,6 +196,8 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
         } else if (!strcmp(argv[i], RTI_CMD_ARG_QOS_FILE[0])) {
             if (RTI_CommandLineArgumentParser_has_value(argc, argv, i)) {
                 output_values->qos_file = argv[i + 1];
+                i += 2;
+                continue;
             } else {
                 printf("[WARN] No value provided for '%s' option! \n\n", 
                         RTI_CMD_ARG_QOS_FILE[0]);
@@ -196,6 +206,8 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
         } else if (strcmp(argv[i], RTI_CMD_ARG_OUTPUT_FILE[0]) == 0) {
             if (RTI_CommandLineArgumentParser_has_value(argc, argv, i)) {
                 output_values->output_file = argv[i + 1];
+                i += 2;
+                continue;
             } else {
                 printf("[WARN] No value provided for '%s' option! \n\n", 
                         RTI_CMD_ARG_OUTPUT_FILE[0]);
@@ -241,6 +253,8 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
                             RTI_CMD_ARG_PROFILE_PATH[0]);
                     goto done;
                 }
+                i += 2;
+                continue;
             } else {
                 printf("[WARN] No value provided for '%s' option! \n\n", 
                         RTI_CMD_ARG_PROFILE_PATH[0]);
@@ -290,6 +304,8 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
                     }
                     strcpy(output_values->qos_type, argv[i + 1]);
                 }
+                i += 2;
+                continue;
             } else {
                 printf("[WARN] No value provided for '%s' option! \n\n", 
                         RTI_CMD_ARG_QOS_TAG[0]);
@@ -298,19 +314,25 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
         } else if (strcmp(argv[i], RTI_CMD_ARG_TOPIC_NAME[0]) == 0) {
             if (RTI_CommandLineArgumentParser_has_value(argc, argv, i)) {
                 output_values->topic_name = argv[i + 1];
+                i += 2;
+                continue;
             } else {
                 printf("[WARN] No value provided for '%s' option! \n\n", 
                         RTI_CMD_ARG_TOPIC_NAME[0]);
                 goto done;
             }
+        } else if (strcmp(argv[i], RTI_CMD_ARG_QOS_DELTA[0]) == 0) {
+            output_values->qos_delta = DDS_BOOLEAN_TRUE;
+            i += 1;
+            continue;
         } else {
             printf("[ERROR] Unknown option '%s'. Please run rtixmloutpututility with the %s option "
                     "to see the valid list of options. \n\n", 
                     argv[i], 
                     RTI_CMD_ARG_HELP[0]);
+            i += 1;
             goto done;
         }
-        i += 2;
     }
 
     if (output_values->qos_type == NULL) {
@@ -357,4 +379,7 @@ void RTI_CommandLineArgumentParser_print_arguments(struct RTI_CommandLineArgumen
     printf("%s \t '%s' \n", 
             RTI_CMD_ARG_TOPIC_NAME[0], 
             values->topic_name == NULL ? "" : values->topic_name);
+    printf("%s \t '%s' \n", 
+            RTI_CMD_ARG_QOS_DELTA[0], 
+            values->qos_delta == DDS_BOOLEAN_TRUE ? "True" : "False");
 }
