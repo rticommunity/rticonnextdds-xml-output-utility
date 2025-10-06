@@ -1,5 +1,5 @@
 /*
- * (c) 2019 Copyright, Real-Time Innovations, Inc. All rights reserved.
+ * (c) 2019-2025 Copyright, Real-Time Innovations, Inc. All rights reserved.
  *
  * RTI grants Licensee a license to use, modify, compile, and create derivative
  * works of the Software.  Licensee has the right to distribute object form
@@ -25,6 +25,7 @@ DDS_Boolean RTI_XMLHelper_dump_datawriter_qos(
         char *library_name, 
         char *profile_name, 
         const char *topic_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
 DDS_Boolean RTI_XMLHelper_dump_datareader_qos(
@@ -32,6 +33,7 @@ DDS_Boolean RTI_XMLHelper_dump_datareader_qos(
         char *library_name, 
         char *profile_name, 
         const char *topic_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
 DDS_Boolean RTI_XMLHelper_dump_topic_qos(
@@ -39,24 +41,28 @@ DDS_Boolean RTI_XMLHelper_dump_topic_qos(
         char *library_name, 
         char *profile_name, 
         const char *topic_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
 DDS_Boolean RTI_XMLHelper_dump_publisher_qos(
         DDS_DomainParticipantFactory *factory, 
         char *library_name, 
         char *profile_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
 DDS_Boolean RTI_XMLHelper_dump_subscriber_qos(
         DDS_DomainParticipantFactory *factory, 
         char *library_name, 
         char *profile_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
 DDS_Boolean RTI_XMLHelper_dump_participant_qos(
         DDS_DomainParticipantFactory *factory, 
         char *library_name, 
         char *profile_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
 /* Forward declarations of RTIXMLUTILS functions */

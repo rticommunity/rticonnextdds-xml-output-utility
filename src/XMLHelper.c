@@ -1,5 +1,5 @@
 /*
- * (c) 2019 Copyright, Real-Time Innovations, Inc. All rights reserved.
+ * (c) 2019-2025 Copyright, Real-Time Innovations, Inc. All rights reserved.
  *
  * RTI grants Licensee a license to use, modify, compile, and create derivative
  * works of the Software.  Licensee has the right to distribute object form
@@ -88,13 +88,24 @@ DDS_Boolean RTI_XMLHelper_dump_datawriter_qos(
         char *library_name, 
         char *profile_name, 
         const char *topic_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context) 
 {
     struct DDS_DataWriterQos datawriter_qos = DDS_DataWriterQos_INITIALIZER;
+    struct DDS_DataWriterQos base_dw_qos = DDS_DataWriterQos_INITIALIZER;
+    struct DDS_DataWriterQos *base_dw_qos_ptr = NULL;
     struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
     DDS_Boolean result = DDS_BOOLEAN_FALSE;
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        if (DDS_DataWriterQos_get_defaultI(&base_dw_qos) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to get the default values for <base_dw_qos>! \n");
+            goto done;
+        }
+        base_dw_qos_ptr = &base_dw_qos;
+    }
 
     if (library_name == NULL || profile_name == NULL) {
         if (DDS_DataWriterQos_get_defaultI(&datawriter_qos) != DDS_RETCODE_OK) {
@@ -116,7 +127,7 @@ DDS_Boolean RTI_XMLHelper_dump_datawriter_qos(
         }
     }
 
-    DDS_DataWriterQos_save(&datawriter_qos, NULL, NULL, context, &printFormat);
+    DDS_DataWriterQos_save(&datawriter_qos, base_dw_qos_ptr, NULL, context, &printFormat);
 
     result = DDS_BOOLEAN_TRUE;
 done:
@@ -133,13 +144,24 @@ DDS_Boolean RTI_XMLHelper_dump_datareader_qos(
         char *library_name, 
         char *profile_name, 
         const char *topic_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context) 
 {
     struct DDS_DataReaderQos datareader_qos = DDS_DataReaderQos_INITIALIZER;
+    struct DDS_DataReaderQos base_dr_qos = DDS_DataReaderQos_INITIALIZER;
+    struct DDS_DataReaderQos *base_dr_qos_ptr = NULL;
     struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
     DDS_Boolean result = DDS_BOOLEAN_FALSE;
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        if (DDS_DataReaderQos_get_defaultI(&base_dr_qos) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to get the default values for <base_dr_qos>! \n");
+            goto done;
+        }
+        base_dr_qos_ptr = &base_dr_qos;
+    }
 
     if (library_name == NULL || profile_name == NULL) {
         if (DDS_DataReaderQos_get_defaultI(&datareader_qos) != DDS_RETCODE_OK) {
@@ -161,7 +183,7 @@ DDS_Boolean RTI_XMLHelper_dump_datareader_qos(
         }
     }
 
-    DDS_DataReaderQos_save(&datareader_qos, NULL, NULL, context, &printFormat);
+    DDS_DataReaderQos_save(&datareader_qos, base_dr_qos_ptr, NULL, context, &printFormat);
 
     result = DDS_BOOLEAN_TRUE;
 done:
@@ -178,13 +200,24 @@ DDS_Boolean RTI_XMLHelper_dump_topic_qos(
         char *library_name, 
         char *profile_name, 
         const char *topic_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context) 
 {
     struct DDS_TopicQos topic_qos = DDS_TopicQos_INITIALIZER;
+    struct DDS_TopicQos base_topic_qos = DDS_TopicQos_INITIALIZER;
+    struct DDS_TopicQos *base_topic_qos_ptr = NULL;
     struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
     DDS_Boolean result = DDS_BOOLEAN_FALSE;
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        if (DDS_TopicQos_get_defaultI(&base_topic_qos) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to get the default values for <base_topic_qos>! \n");
+            goto done;
+        }
+        base_topic_qos_ptr = &base_topic_qos;
+    }
 
     if (library_name == NULL || profile_name == NULL) {
         if (DDS_TopicQos_get_defaultI(&topic_qos) != DDS_RETCODE_OK) {
@@ -206,7 +239,7 @@ DDS_Boolean RTI_XMLHelper_dump_topic_qos(
         }
     }
 
-    DDS_TopicQos_save(&topic_qos, NULL, NULL, context, &printFormat);
+    DDS_TopicQos_save(&topic_qos, base_topic_qos_ptr, NULL, context, &printFormat);
 
     result = DDS_BOOLEAN_TRUE;
 done:
@@ -222,13 +255,21 @@ DDS_Boolean RTI_XMLHelper_dump_publisher_qos(
         DDS_DomainParticipantFactory *factory, 
         char *library_name, 
         char *profile_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context) 
 {
     struct DDS_PublisherQos publisher_qos = DDS_PublisherQos_INITIALIZER;
+    struct DDS_PublisherQos base_publisher_qos = DDS_PublisherQos_INITIALIZER;
+    struct DDS_PublisherQos *base_publisher_qos_ptr = NULL;
     struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
     DDS_Boolean result = DDS_BOOLEAN_FALSE;
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        DDS_PublisherQos_get_defaultI(&base_publisher_qos);
+        base_publisher_qos_ptr = &base_publisher_qos;
+    }
 
     if (library_name == NULL || profile_name == NULL) {
         DDS_PublisherQos_get_defaultI(&publisher_qos);
@@ -245,7 +286,7 @@ DDS_Boolean RTI_XMLHelper_dump_publisher_qos(
         }
     }
 
-    DDS_PublisherQos_save(&publisher_qos, NULL, NULL, context, &printFormat);
+    DDS_PublisherQos_save(&publisher_qos, base_publisher_qos_ptr, NULL, context, &printFormat);
 
     result = DDS_BOOLEAN_TRUE;
 done:
@@ -261,13 +302,21 @@ DDS_Boolean RTI_XMLHelper_dump_subscriber_qos(
         DDS_DomainParticipantFactory *factory, 
         char *library_name, 
         char *profile_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context) 
 {
     struct DDS_SubscriberQos subscriber_qos = DDS_SubscriberQos_INITIALIZER;
+    struct DDS_SubscriberQos base_subscriber_qos = DDS_SubscriberQos_INITIALIZER;
+    struct DDS_SubscriberQos *base_subscriber_qos_ptr = NULL;
     struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
     DDS_Boolean result = DDS_BOOLEAN_FALSE;
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        DDS_SubscriberQos_get_defaultI(&base_subscriber_qos);
+        base_subscriber_qos_ptr = &base_subscriber_qos;
+    }
 
     if (library_name == NULL || profile_name == NULL) {
         DDS_SubscriberQos_get_defaultI(&subscriber_qos);
@@ -284,7 +333,7 @@ DDS_Boolean RTI_XMLHelper_dump_subscriber_qos(
         }
     }
 
-    DDS_SubscriberQos_save(&subscriber_qos, NULL, NULL, context, &printFormat);
+    DDS_SubscriberQos_save(&subscriber_qos, base_subscriber_qos_ptr, NULL, context, &printFormat);
 
     result = DDS_BOOLEAN_TRUE;
 done:
@@ -300,13 +349,24 @@ DDS_Boolean RTI_XMLHelper_dump_participant_qos(
         DDS_DomainParticipantFactory *factory, 
         char *library_name, 
         char *profile_name, 
+        DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context) 
 {
     struct DDS_DomainParticipantQos participant_qos = DDS_DomainParticipantQos_INITIALIZER;
+    struct DDS_DomainParticipantQos base_participant_qos = DDS_DomainParticipantQos_INITIALIZER;
+    struct DDS_DomainParticipantQos *base_participant_qos_ptr = NULL;
     struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
     DDS_Boolean result = DDS_BOOLEAN_FALSE;
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        if (DDS_DomainParticipantQos_get_defaultI(&base_participant_qos) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to get the default values for <base_participant_qos>! \n");
+            goto done;
+        }
+        base_participant_qos_ptr = &base_participant_qos;
+    }
 
     if (library_name == NULL || profile_name == NULL) {
         if (DDS_DomainParticipantQos_get_defaultI(&participant_qos) != DDS_RETCODE_OK) {
@@ -326,7 +386,7 @@ DDS_Boolean RTI_XMLHelper_dump_participant_qos(
         }
     }
 
-    DDS_DomainParticipantQos_save(&participant_qos, NULL, NULL, context, &printFormat);
+    DDS_DomainParticipantQos_save(&participant_qos, base_participant_qos_ptr, NULL, context, &printFormat);
 
     result = DDS_BOOLEAN_TRUE;
 done:

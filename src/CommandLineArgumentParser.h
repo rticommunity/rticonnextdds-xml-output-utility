@@ -1,5 +1,5 @@
 /*
- * (c) 2019 Copyright, Real-Time Innovations, Inc. All rights reserved.
+ * (c) 2019-2025 Copyright, Real-Time Innovations, Inc. All rights reserved.
  *
  * RTI grants Licensee a license to use, modify, compile, and create derivative
  * works of the Software.  Licensee has the right to distribute object form
@@ -29,6 +29,7 @@ struct RTI_CommandLineArguments {
     char *qos_type;
     const char *topic_name;
     char *query;
+    DDS_Boolean qos_delta;
 };
 
 void RTI_CommandLineArguments_initialize(struct RTI_CommandLineArguments *cmd_args);

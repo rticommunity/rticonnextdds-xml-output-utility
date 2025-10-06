@@ -52,6 +52,7 @@ Here are the various options for this utility
 | qosProfile | Fully qualified path of a QoS Profile. For example: QoSLibraryName::QoSProfileName | OPTIONAL: The ``` <qos_profile>``` with ``` is_default_qos="true" ``` will be selected OR the default values will be returned for the -qosTag |
 | qosTag | XML tag name who QoS values you want to be fetched. You can also select a subtag by separating it with a '/'. For example: ``` datawriter_qos/history ``` or ``` domain_participant_qos/property ``` | REQUIRED: Allowed values = {datawriter_qos, datareader_qos, topic_qos, domain_participant_qos (participant_qos is being deprecated), publisher_qos, subscriber_qos} |
 | topicName | Can be used with -qosTag = {datawriter_qos, datareader_qos, topic_qos} | OPTIONAL: The default value used with these types will be NULL |
+| deltaProfile | Only show deviations from default QoS configuration | OPTIONAL: All QoS configuration will be show by default |
 | help | Displays all the options of the rtixmloutpututility | OPTIONAL |
 
 You should also add the the location of the ``` lib ``` folder to your PATH (Windows) or DYLD_LIBRARY_PATH (Mac) or LD_LIBRARY_PATH (Linux) if you compiled the utility using ``` -DBUILD_SHARED_LIBS=1 ```

@@ -1,5 +1,5 @@
 /*
- * (c) 2019 Copyright, Real-Time Innovations, Inc. All rights reserved.
+ * (c) 2019-2025 Copyright, Real-Time Innovations, Inc. All rights reserved.
  *
  * RTI grants Licensee a license to use, modify, compile, and create derivative
  * works of the Software.  Licensee has the right to distribute object form
@@ -29,6 +29,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
                 cmd_args->topic_name, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -38,6 +39,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
                 cmd_args->topic_name, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -47,6 +49,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
                 cmd_args->topic_name, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -55,6 +58,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 factory, 
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -63,6 +67,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 factory, 
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
@@ -78,6 +83,7 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 factory, 
                 cmd_args->qos_library, 
                 cmd_args->qos_profile, 
+                cmd_args->qos_delta,
                 xml_save_context)) {
             goto done;
         }
