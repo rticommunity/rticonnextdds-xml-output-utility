@@ -323,14 +323,13 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
             }
         } else if (strcmp(argv[i], RTI_CMD_ARG_QOS_DELTA[0]) == 0) {
             output_values->qos_delta = DDS_BOOLEAN_TRUE;
-            i += 1;
+            i++;
             continue;
         } else {
             printf("[ERROR] Unknown option '%s'. Please run rtixmloutpututility with the %s option "
                     "to see the valid list of options. \n\n", 
                     argv[i], 
                     RTI_CMD_ARG_HELP[0]);
-            i += 1;
             goto done;
         }
     }

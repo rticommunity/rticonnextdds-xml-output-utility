@@ -99,7 +99,7 @@ DDS_Boolean RTI_XMLHelper_dump_datawriter_qos(
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
 
-    if(qos_delta){
+    if (qos_delta) {
         if (DDS_DataWriterQos_get_defaultI(&base_dw_qos) != DDS_RETCODE_OK) {
             printf("[ERROR] Failed to get the default values for <base_dw_qos>! \n");
             goto done;
@@ -155,7 +155,7 @@ DDS_Boolean RTI_XMLHelper_dump_datareader_qos(
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
 
-    if(qos_delta){
+    if (qos_delta) {
         if (DDS_DataReaderQos_get_defaultI(&base_dr_qos) != DDS_RETCODE_OK) {
             printf("[ERROR] Failed to get the default values for <base_dr_qos>! \n");
             goto done;
@@ -211,7 +211,7 @@ DDS_Boolean RTI_XMLHelper_dump_topic_qos(
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
 
-    if(qos_delta){
+    if (qos_delta) {
         if (DDS_TopicQos_get_defaultI(&base_topic_qos) != DDS_RETCODE_OK) {
             printf("[ERROR] Failed to get the default values for <base_topic_qos>! \n");
             goto done;
@@ -266,7 +266,7 @@ DDS_Boolean RTI_XMLHelper_dump_publisher_qos(
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
 
-    if(qos_delta){
+    if (qos_delta) {
         DDS_PublisherQos_get_defaultI(&base_publisher_qos);
         base_publisher_qos_ptr = &base_publisher_qos;
     }
@@ -313,7 +313,7 @@ DDS_Boolean RTI_XMLHelper_dump_subscriber_qos(
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
 
-    if(qos_delta){
+    if (qos_delta) {
         DDS_SubscriberQos_get_defaultI(&base_subscriber_qos);
         base_subscriber_qos_ptr = &base_subscriber_qos;
     }
@@ -360,7 +360,7 @@ DDS_Boolean RTI_XMLHelper_dump_participant_qos(
 
     printFormat.print_private = DDS_BOOLEAN_TRUE;
 
-    if(qos_delta){
+    if (qos_delta) {
         if (DDS_DomainParticipantQos_get_defaultI(&base_participant_qos) != DDS_RETCODE_OK) {
             printf("[ERROR] Failed to get the default values for <base_participant_qos>! \n");
             goto done;
