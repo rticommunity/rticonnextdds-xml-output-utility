@@ -87,7 +87,17 @@ DDS_Boolean RTI_XMLOutputUtility_process_arguments(
                 xml_save_context)) {
             goto done;
         }
+    } else if (strcmp("domain_participant_factory_qos", cmd_args->qos_type) == 0) {
+        if (!RTI_XMLHelper_dump_participant_factory_qos(
+                factory, 
+                cmd_args->qos_library, 
+                cmd_args->qos_profile, 
+                cmd_args->qos_delta,
+                xml_save_context)) {
+            goto done;
+        }
     }
+
     result = DDS_BOOLEAN_TRUE;
 done:
 

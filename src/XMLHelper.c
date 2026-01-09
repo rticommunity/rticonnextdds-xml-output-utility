@@ -397,3 +397,56 @@ done:
     }
     return result;
 }
+
+DDS_Boolean RTI_XMLHelper_dump_participant_factory_qos(
+        DDS_DomainParticipantFactory *factory, 
+        char *library_name, 
+        char *profile_name, 
+        DDS_Boolean qos_delta,
+        struct RTIXMLSaveContext *context) 
+{
+    struct DDS_DomainParticipantFactoryQos participant_factory_qos = DDS_DomainParticipantFactoryQos_INITIALIZER;
+    struct DDS_DomainParticipantFactoryQos base_participant_factory_qos = DDS_DomainParticipantFactoryQos_INITIALIZER;
+    struct DDS_DomainParticipantFactoryQos *base_participant_factory_qos_ptr = NULL;
+    struct DDS_QosPrintFormat printFormat = DDS_QosPrintFormat_INITIALIZER;
+    DDS_Boolean result = DDS_BOOLEAN_FALSE;
+
+    printFormat.print_private = DDS_BOOLEAN_TRUE;
+
+    if (qos_delta) {
+        if (DDS_DomainParticipantFactory_get_qos(factory, &base_participant_factory_qos) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to get the default values for <base_participant_factory_qos>! \n");
+            goto done;
+        }
+        base_participant_factory_qos_ptr = &base_participant_factory_qos;
+    }
+
+    if (library_name == NULL || profile_name == NULL) {
+        if (DDS_DomainParticipantFactory_get_qos(factory, &participant_factory_qos) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to get the default values for <domain_participant_factory_qos>! \n");
+            goto done;
+        }
+    } else {
+        if (DDS_DomainParticipantFactory_get_participant_factory_qos_from_profile(
+                    factory, 
+                    &participant_factory_qos, 
+                    library_name, 
+                    profile_name) != DDS_RETCODE_OK) {
+            printf("[ERROR] Failed to fetch <domain_participant_factory_qos> values under %s::%s! \n", 
+                    library_name, 
+                    profile_name);
+            goto done;
+        }
+    }
+
+    DDS_DomainParticipantFactoryQos_save(&participant_factory_qos, base_participant_factory_qos_ptr, NULL, context, &printFormat);
+
+    result = DDS_BOOLEAN_TRUE;
+done:
+
+    if (DDS_DomainParticipantFactoryQos_finalize(&participant_factory_qos) != DDS_RETCODE_OK) {
+        printf("[ERROR] Failed to delete the <participant_factory_qos>! \n");
+        result = DDS_BOOLEAN_FALSE;
+    }
+    return result;
+}

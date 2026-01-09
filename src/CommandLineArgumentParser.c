@@ -45,6 +45,7 @@ const char *RTI_CMD_ARG_QOS_TAG[RTI_CMD_ARG_INFO_ARRAY_SIZE] = {
         "\n\t\t\t \"datareader_qos\", " 
         "\n\t\t\t \"topic_qos\", " 
         "\n\t\t\t \"domain_participant_qos\", " 
+        "\n\t\t\t \"domain_participant_factory_qos\", " 
         "\n\t\t\t \"publisher_qos\", " 
         "\n\t\t\t \"subscriber_qos\""};
 const char *RTI_CMD_ARG_TOPIC_NAME[RTI_CMD_ARG_INFO_ARRAY_SIZE] = {
@@ -347,7 +348,8 @@ DDS_Boolean RTI_CommandLineArgumentParser_parse_arguments(
             || strcmp(output_values->qos_type, "participant_qos") == 0
             || strcmp(output_values->qos_type, "publisher_qos") == 0
             || strcmp(output_values->qos_type, "subscriber_qos") == 0
-            || strcmp(output_values->qos_type, "domain_participant_qos") == 0)) {
+            || strcmp(output_values->qos_type, "domain_participant_qos") == 0
+            || strcmp(output_values->qos_type, "domain_participant_factory_qos") == 0)) {
         printf("[ERROR] \"%s\" doesn't match one of the expected values for '%s' option! \n", 
                 output_values->qos_type, 
                 RTI_CMD_ARG_QOS_TAG[0]);
