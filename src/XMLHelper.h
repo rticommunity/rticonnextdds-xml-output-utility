@@ -65,6 +65,13 @@ DDS_Boolean RTI_XMLHelper_dump_participant_qos(
         DDS_Boolean qos_delta,
         struct RTIXMLSaveContext *context);
 
+DDS_Boolean RTI_XMLHelper_dump_participant_factory_qos(
+        DDS_DomainParticipantFactory *factory, 
+        char *library_name, 
+        char *profile_name, 
+        DDS_Boolean qos_delta,
+        struct RTIXMLSaveContext *context);
+
 /* Forward declarations of RTIXMLUTILS functions */
 
 struct RTIXMLUTILSObject;
